@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="kinegar">
+        <createTable tableName="employee">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="salary" type="numeric(19,2)"/>
+        </createTable>
+        <createTable tableName="product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="price" type="numeric(19,2)"/>
+            <column name="stock" type="integer"/>
+        </createTable>
+        <createTable tableName="supplier">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="transaction">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pic_id" type="bigint"/>
+            <column name="timestamp" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="total_price" type="numeric(19,2)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="transaction" baseColumnNames="pic_id" constraintName="transaction_fk"
+                                 referencedTableName="employee"
+                                 referencedColumnNames="id"/>
+        <createTable tableName="product_transaction">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sold_price" type="numeric(19,2)"/>
+            <column name="stock" type="integer"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product_transaction" baseColumnNames="transaction_id" constraintName="transaction_fk"
+                                 referencedTableName="transaction"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="product_transaction" baseColumnNames="product_id" constraintName="product_fk"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+        <createTable tableName="product_supplier_transaction">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="supplier_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sold_price" type="numeric(19,2)"/>
+            <column name="stock" type="integer"/>
+            <column name="timestamp" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product_supplier_transaction" baseColumnNames="supplier_id" constraintName="supplier_fk"
+                                 referencedTableName="supplier"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="product_supplier_transaction" baseColumnNames="product_id" constraintName="product_fk"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="2" author="kinegar">
+        <dropNotNullConstraint tableName="product_transaction" columnName="transaction_id"/>
+    </changeSet>
+
+    <changeSet id="3" author="kinegar">
+        <modifyDataType tableName="transaction" columnName="id" newDataType="serial"/>
+    </changeSet>
+
+    <changeSet id="4" author="kinegar">
+        <modifyDataType tableName="transaction" columnName="id" newDataType="bigserial"/>
+    </changeSet>
+</databaseChangeLog>

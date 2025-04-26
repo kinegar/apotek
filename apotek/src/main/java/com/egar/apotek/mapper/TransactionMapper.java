@@ -94,6 +94,9 @@ public class TransactionMapper {
         for(Transaction transaction : transactions){
             TransactionDTO transactionDTO = modelMapper.map(transaction, TransactionDTO.class);
             transactionDTO.setPic(transaction.getPic().getId());
+            for (int i = 0; i < transactionDTO.getProductTransactions().size(); i++) {
+                transactionDTO.getProductTransactions().get(i).setProduct(transaction.getProductTransactions().get(i).getProduct().getId());
+            }
             transactionDTOS.add(transactionDTO);
         }
         return transactionDTOS;

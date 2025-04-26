@@ -22,8 +22,7 @@ public class Transaction {
     private BigInteger id;
     @Column(name = "timestamp", insertable = true, updatable = false)
     private Date timestamp;
-    @OneToMany(cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "transaction_id")
     private List<ProductTransaction> productTransactions;
     @ManyToOne

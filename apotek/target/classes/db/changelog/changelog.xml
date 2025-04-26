@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="kinegar">
         <createTable tableName="employee">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="first_name" type="varchar(255)"/>
@@ -14,7 +14,7 @@
             <column name="salary" type="numeric(19,2)"/>
         </createTable>
         <createTable tableName="product">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
@@ -28,18 +28,22 @@
             <column name="name" type="varchar(255)"/>
         </createTable>
         <createTable tableName="transaction">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="pic_id" type="bigint"/>
+            <column name="pic_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="timestamp" type="TIMESTAMP WITHOUT TIME ZONE"/>
             <column name="total_price" type="numeric(19,2)"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="transaction" baseColumnNames="pic_id" constraintName="transaction_fk"
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="pic_id"
+                                 constraintName="transaction_fk"
                                  referencedTableName="employee"
                                  referencedColumnNames="id"/>
         <createTable tableName="product_transaction">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="product_id" type="bigint">
@@ -81,12 +85,10 @@
     <changeSet id="2" author="kinegar">
         <dropNotNullConstraint tableName="product_transaction" columnName="transaction_id"/>
     </changeSet>
-
     <changeSet id="3" author="kinegar">
-        <modifyDataType tableName="transaction" columnName="id" newDataType="serial"/>
+        <addAutoIncrement tableName="supplier" columnName="id"/>
     </changeSet>
-
     <changeSet id="4" author="kinegar">
-        <modifyDataType tableName="transaction" columnName="id" newDataType="bigserial"/>
+        <addAutoIncrement tableName="product_supplier_transaction" columnName="id"/>
     </changeSet>
 </databaseChangeLog>

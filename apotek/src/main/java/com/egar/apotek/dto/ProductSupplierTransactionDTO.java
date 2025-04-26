@@ -10,6 +10,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,5 +23,5 @@ public class ProductSupplierTransactionDTO {
     private BigInteger supplier;
     private BigDecimal soldPrice;
     private int stock;
-    private Timestamp timestamp;
+    private Date timestamp;
 }

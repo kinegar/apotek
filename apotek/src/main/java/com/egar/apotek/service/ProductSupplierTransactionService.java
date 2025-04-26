@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProductSupplierTransactionService {
     public ProductSupplierTransactionDTO save(ProductSupplierTransactionDTO productSupplierTransactionDTO);
     public ProductSupplierTransactionDTO findById(BigInteger id);
+    public List<ProductSupplierTransactionDTO> findAll();
     public List<ProductSupplierTransactionDTO> findBySupplierId(BigInteger id);
     public List<ProductSupplierTransactionDTO> findByProductId(BigInteger id);
     public List<ProductSupplierTransactionDTO> findByTransactionDate(Date startDate, Date endDate);

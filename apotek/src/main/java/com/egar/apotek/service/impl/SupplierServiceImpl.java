@@ -25,7 +25,9 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public SupplierDTO save(SupplierDTO supplierDTO) {
-        supplierRepository.save(supplierMapper.convertToEntity(supplierDTO));
+        Supplier supplier = supplierMapper.convertToEntity(supplierDTO);
+        supplierRepository.save(supplier);
+        supplierDTO.setId(supplier.getId());
         return supplierDTO;
     }
 

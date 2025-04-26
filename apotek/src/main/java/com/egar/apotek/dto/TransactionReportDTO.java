@@ -15,9 +15,9 @@ import java.util.List;
 public class TransactionReportDTO {
     private Date startDate;
     private Date endDate;
-    private int numberOfTransaction;
-    private List<TransactionReportUnitSoldDTO> unitSold;
-    private BigDecimal gross;
+    private int numberOfTransaction;//jumlah transaksi
+    private List<TransactionReportUnitSoldDTO> unitSold; //jumlah unit terjual
+    private BigDecimal gross; //
     private List<TransactionReportUnitSoldDTO> unitRestock;
     private BigDecimal expense;
     private BigDecimal nett;
